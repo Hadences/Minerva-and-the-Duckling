@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ct1g1eogdyg3n"]
+
+[ext_resource type="Texture2D" uid="uid://sqnaaotxoqb8" path="res://Assets/light_circle.png" id="1_hmo1l"]
+
+[sub_resource type="Gradient" id="Gradient_0r8c5"]
+offsets = PackedFloat32Array(0.405018, 0.924731)
+colors = PackedColorArray(0.780392, 0.811765, 0.8, 1, 0.647059, 0.188235, 0.188235, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fgbnv"]
+gradient = SubResource("Gradient_0r8c5")
+
+[sub_resource type="Curve" id="Curve_upsjq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.542763, 0.988764), 0.0, 0.0, 0, 0, Vector2(0.865131, 0.561798), 3.20225, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_35wqt"]
+curve = SubResource("Curve_upsjq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ur6i5"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 20, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_35wqt")
+color_ramp = SubResource("GradientTexture1D_fgbnv")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ur6i5")
+texture = ExtResource("1_hmo1l")
+lifetime = 1.5
+one_shot = true
+speed_scale = 4.0
+explosiveness = 1.0
+fixed_fps = 60

@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://x66wta2aqpja"]
+
+[ext_resource type="Script" path="res://Scripts/Scenes.gd" id="1_lf3b8"]
+[ext_resource type="PackedScene" uid="uid://cxloxwj065nhn" path="res://Scenes/Game.tscn" id="2_bypgs"]
+[ext_resource type="PackedScene" uid="uid://bxc3rl5tih7wk" path="res://Scenes/GameMenu.tscn" id="3_8lyuh"]
+[ext_resource type="PackedScene" uid="uid://bpwfl37ymo0d0" path="res://Scenes/GameOver.tscn" id="4_1h1bo"]
+
+[node name="Scenes" type="Node"]
+process_mode = 3
+script = ExtResource("1_lf3b8")
+game_scene = ExtResource("2_bypgs")
+main_menu_scene = ExtResource("3_8lyuh")
+game_over_scene = ExtResource("4_1h1bo")

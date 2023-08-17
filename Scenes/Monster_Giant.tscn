@@ -1,0 +1,141 @@
+[gd_scene load_steps=19 format=3 uid="uid://cr067q4hbn2xa"]
+
+[ext_resource type="Script" path="res://Scripts/Monster.gd" id="1_1home"]
+[ext_resource type="Texture2D" uid="uid://deja41tgcq7um" path="res://Assets/mob/giant6.png" id="2_pmyd7"]
+[ext_resource type="Texture2D" uid="uid://bj8b8mytwwk3h" path="res://Assets/mob/giant7.png" id="3_o7wpb"]
+[ext_resource type="Texture2D" uid="uid://b4mlvv65owcua" path="res://Assets/mob/giant8.png" id="4_27y04"]
+[ext_resource type="Texture2D" uid="uid://buua4fgexv71n" path="res://Assets/mob/giant9.png" id="5_yy1x6"]
+[ext_resource type="Texture2D" uid="uid://b5rqpfqxfr562" path="res://Assets/mob/giant10.png" id="6_v15pw"]
+[ext_resource type="Texture2D" uid="uid://bdfkfqbjj53gg" path="res://Assets/mob/giant1.png" id="7_sxtto"]
+[ext_resource type="Texture2D" uid="uid://pvprfpqsm2mo" path="res://Assets/mob/giant2.png" id="8_iim5y"]
+[ext_resource type="Texture2D" uid="uid://dphauwrn6fidk" path="res://Assets/mob/giant3.png" id="9_owyec"]
+[ext_resource type="Texture2D" uid="uid://bmad7a17lyxka" path="res://Assets/mob/giant4.png" id="10_bv7w3"]
+[ext_resource type="Script" path="res://Scripts/HitboxComponent.gd" id="11_54c3q"]
+[ext_resource type="Texture2D" uid="uid://b1gih7p38inmm" path="res://Assets/mob/giant5.png" id="11_rl4v3"]
+[ext_resource type="PackedScene" uid="uid://c3jm5gaa8yh8o" path="res://Scenes/HealthComponent.tscn" id="12_elkfh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1gi0t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pmyd7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o7wpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_27y04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yy1x6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_v15pw")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_sxtto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_iim5y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_owyec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_bv7w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rl4v3")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_en8y0"]
+size = Vector2(25, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v2ujr"]
+radius = 33.3766
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7hi7n"]
+radius = 51.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0ne7"]
+radius = 34.0588
+
+[node name="Monster_Giant" type="RigidBody2D"]
+position = Vector2(1, 1)
+collision_layer = 4
+collision_mask = 32
+lock_rotation = true
+script = ExtResource("1_1home")
+max_speed = 50.0
+acceleration = 25.0
+linearDrag = 9.0
+attack_damage = 6
+knockback_force = 300.0
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -1)
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_1gi0t")
+animation = &"run"
+frame_progress = 0.464719
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2.5, 0)
+shape = SubResource("RectangleShape2D_en8y0")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("11_54c3q")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_v2ujr")
+
+[node name="HealthComponent" parent="." instance=ExtResource("12_elkfh")]
+MAX_HEALTH = 15
+
+[node name="TargetRange" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRange"]
+shape = SubResource("CircleShape2D_7hi7n")
+debug_color = Color(0.858824, 0.239216, 0.686275, 0.419608)
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_b0ne7")
+debug_color = Color(0.67451, 0.337255, 0.945098, 0.419608)
+
+[node name="AttackCD" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+
+[connection signal="onDamageEvent" from="HealthComponent" to="." method="_on_health_component_on_damage_event"]
+[connection signal="onDeathEvent" from="HealthComponent" to="." method="_on_health_component_on_death_event"]
+[connection signal="body_entered" from="TargetRange" to="." method="_on_target_range_body_entered"]
+[connection signal="body_exited" from="TargetRange" to="." method="_on_target_range_body_exited"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="AttackCD" to="." method="_on_attack_cd_timeout"]

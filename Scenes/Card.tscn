@@ -1,0 +1,126 @@
+[gd_scene load_steps=9 format=3 uid="uid://diyn8lwqkkv7y"]
+
+[ext_resource type="Texture2D" uid="uid://coq4s2uma01xa" path="res://Assets/card.png" id="1_nyh4s"]
+[ext_resource type="Texture2D" uid="uid://btuwynbnoa66i" path="res://Assets/card_hover.png" id="2_f4u56"]
+[ext_resource type="Script" path="res://Scripts/Card.gd" id="3_73scp"]
+[ext_resource type="Texture2D" uid="uid://bsje4e26k151o" path="res://Assets/gold.png" id="3_lmlxm"]
+[ext_resource type="FontFile" uid="uid://bgj7kf74577ek" path="res://Assets/Fonts/BitPotion.ttf" id="4_1p1x6"]
+
+[sub_resource type="Animation" id="Animation_6ewo1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tb1dd"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 0.241484, 0.183011),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -58), Vector2(0, -49)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 2.14355),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0g0r"]
+_data = {
+"RESET": SubResource("Animation_6ewo1"),
+"spawn": SubResource("Animation_tb1dd")
+}
+
+[node name="Card" type="TextureButton"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 46.08
+offset_bottom = 48.96
+pivot_offset = Vector2(23, 25)
+texture_normal = ExtResource("1_nyh4s")
+texture_hover = ExtResource("2_f4u56")
+stretch_mode = 0
+script = ExtResource("3_73scp")
+piercable_card_chance = 10
+triple_throw_chance = 8
+increase_spear_damage_chance = 20
+increase_throw_spear_chance = 15
+
+[node name="Cost" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -6.0
+offset_right = 40.0
+offset_bottom = 34.0
+scale = Vector2(0.916793, 0.916793)
+texture = ExtResource("3_lmlxm")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Cost"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 15.0
+offset_right = 64.0
+offset_bottom = 38.0
+scale = Vector2(0.6, 0.6)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("4_1p1x6")
+theme_override_font_sizes/font_size = 16
+text = "20"
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 20.0
+offset_right = 88.0
+offset_bottom = 68.0
+scale = Vector2(0.4252, 0.544874)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/line_spacing = -2
+theme_override_fonts/font = ExtResource("4_1p1x6")
+theme_override_font_sizes/font_size = 16
+text = "Increase the spear attack speed by 20%"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0g0r")
+}
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

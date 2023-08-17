@@ -1,0 +1,149 @@
+[gd_scene load_steps=20 format=3 uid="uid://bxh7mka4qn5ax"]
+
+[ext_resource type="Script" path="res://Scripts/Monster.gd" id="1_h3j8u"]
+[ext_resource type="Texture2D" uid="uid://0hl1wmiva5ao" path="res://Assets/mob/hellhound4.png" id="2_4xs6x"]
+[ext_resource type="Script" path="res://Scripts/HitboxComponent.gd" id="3_4n7x6"]
+[ext_resource type="Texture2D" uid="uid://4wugvtt1onj6" path="res://Assets/mob/hellhound5.png" id="3_42rwg"]
+[ext_resource type="PackedScene" uid="uid://c3jm5gaa8yh8o" path="res://Scenes/HealthComponent.tscn" id="3_gpdox"]
+[ext_resource type="Texture2D" uid="uid://vyetr8k8wkbm" path="res://Assets/mob/hellhound6.png" id="4_v28ho"]
+[ext_resource type="Texture2D" uid="uid://dvknv3hr5sai4" path="res://Assets/mob/hellhound7.png" id="5_cq8lg"]
+[ext_resource type="Texture2D" uid="uid://bphed55hc0cw1" path="res://Assets/mob/hellhound8.png" id="6_maj8s"]
+[ext_resource type="Texture2D" uid="uid://bpbf4ryoto5ko" path="res://Assets/mob/hellhound1.png" id="7_2ombc"]
+[ext_resource type="Texture2D" uid="uid://ca074uddrjucu" path="res://Assets/mob/hellhound9.png" id="7_8cyhy"]
+[ext_resource type="Texture2D" uid="uid://b75d34nhhxkwt" path="res://Assets/mob/hellhound2.png" id="8_0ctx5"]
+[ext_resource type="Texture2D" uid="uid://cdci6gdjn1ovu" path="res://Assets/mob/hellhound3.png" id="9_4s1i0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dlqcw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4xs6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_42rwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v28ho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cq8lg")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_maj8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8cyhy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2ombc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0ctx5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4s1i0")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_en8y0"]
+size = Vector2(20, 12.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v2ujr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7hi7n"]
+radius = 51.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b0ne7"]
+radius = 20.0
+
+[sub_resource type="Gradient" id="Gradient_83xye"]
+offsets = PackedFloat32Array(0, 0.725753)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1vvog"]
+gradient = SubResource("Gradient_83xye")
+fill = 1
+fill_from = Vector2(0.487179, 0.487179)
+
+[node name="Monster_HellHound" type="RigidBody2D"]
+position = Vector2(1, 1)
+collision_layer = 4
+collision_mask = 32
+lock_rotation = true
+script = ExtResource("1_h3j8u")
+max_speed = 250.0
+acceleration = 150.0
+linearDrag = 9.0
+attack_damage = 2
+knockback_force = 80.0
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_dlqcw")
+animation = &"attack"
+frame_progress = 0.399104
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.25)
+shape = SubResource("RectangleShape2D_en8y0")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_4n7x6")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_v2ujr")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_gpdox")]
+
+[node name="TargetRange" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetRange"]
+shape = SubResource("CircleShape2D_7hi7n")
+debug_color = Color(0.858824, 0.239216, 0.686275, 0.419608)
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_b0ne7")
+debug_color = Color(0.67451, 0.337255, 0.945098, 0.419608)
+
+[node name="AttackCD" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.6
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.392157, 0.25098, 0.486275, 1)
+energy = 0.2
+texture = SubResource("GradientTexture2D_1vvog")
+
+[connection signal="onDamageEvent" from="HealthComponent" to="." method="_on_health_component_on_damage_event"]
+[connection signal="onDeathEvent" from="HealthComponent" to="." method="_on_health_component_on_death_event"]
+[connection signal="body_entered" from="TargetRange" to="." method="_on_target_range_body_entered"]
+[connection signal="body_exited" from="TargetRange" to="." method="_on_target_range_body_exited"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="AttackCD" to="." method="_on_attack_cd_timeout"]

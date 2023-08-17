@@ -1,0 +1,655 @@
+[gd_scene load_steps=24 format=3 uid="uid://bihf461hnmip"]
+
+[ext_resource type="Script" path="res://Scripts/GameHUD.gd" id="1_l5ux4"]
+[ext_resource type="Script" path="res://Scripts/StatueHealth.gd" id="1_m77h4"]
+[ext_resource type="Texture2D" uid="uid://d286bkqom4b6p" path="res://Assets/statueHP_progress.png" id="1_nfyha"]
+[ext_resource type="Texture2D" uid="uid://coe4dwmrver8i" path="res://Assets/statueHP_over.png" id="1_nt3bw"]
+[ext_resource type="FontFile" uid="uid://bgj7kf74577ek" path="res://Assets/Fonts/BitPotion.ttf" id="2_a0jqe"]
+[ext_resource type="Texture2D" uid="uid://c4rc0s5l7e0l4" path="res://Assets/playerHP_over.png" id="5_4l3y0"]
+[ext_resource type="Texture2D" uid="uid://gf7v2gcortcg" path="res://Assets/playerHP_progress.png" id="5_pr7dh"]
+[ext_resource type="Texture2D" uid="uid://ma37hdlbv17l" path="res://Assets/character_ui.png" id="8_duc3g"]
+[ext_resource type="Texture2D" uid="uid://bsje4e26k151o" path="res://Assets/gold.png" id="9_5b765"]
+[ext_resource type="Texture2D" uid="uid://b7ep8icxhbxeh" path="res://Assets/character_ui_duck.png" id="9_8iqjq"]
+[ext_resource type="Texture2D" uid="uid://gb584wnlvxd8" path="res://Assets/character_ui_statue.png" id="10_t1b8m"]
+[ext_resource type="Script" path="res://Scripts/Cards.gd" id="10_ywsnj"]
+[ext_resource type="Texture2D" uid="uid://b3nl8puwn8702" path="res://Assets/character_ui_statuebanner1.png" id="11_vpxa2"]
+[ext_resource type="Texture2D" uid="uid://fj7m7gtgc2yp" path="res://Assets/character_ui_statuebanner2.png" id="12_ju4bl"]
+[ext_resource type="Texture2D" uid="uid://bdf4aevwak6pu" path="res://Assets/character_ui_duckbanner1.png" id="13_vdxj7"]
+
+[sub_resource type="Animation" id="Animation_vho6n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Message:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterUI/Base:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterUI/Duck:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterUI/Duck_banner1:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterUI/Statue:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CharacterUI/Statue_banner1:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-40, -40)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CharacterUI/Statue_banner1:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CharacterUI/Statue_banner2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-96, -72)]
+}
+
+[sub_resource type="Animation" id="Animation_n4wwp"]
+resource_name = "show_duck"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterUI/Base:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterUI/Duck:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterUI/Duck_banner1:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 0.258816, 0.241484),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2.5, 2.5), Vector2(2.2, 2.2)]
+}
+
+[sub_resource type="Animation" id="Animation_1fhw8"]
+resource_name = "show_statue"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterUI/Base:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterUI/Statue:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterUI/Statue_banner1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-40, -40), Vector2(-40, -16)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterUI/Statue_banner1:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterUI/Statue_banner2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.241591, 0.307886),
+"transitions": PackedFloat32Array(0.0457527, 1, 1),
+"update": 0,
+"values": [Vector2(-96, -72), Vector2(-32, -8), Vector2(-40, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_elvr5"]
+resource_name = "text"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Message:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.304681),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w7kkl"]
+_data = {
+"RESET": SubResource("Animation_vho6n"),
+"show_duck": SubResource("Animation_n4wwp"),
+"show_statue": SubResource("Animation_1fhw8"),
+"text": SubResource("Animation_elvr5")
+}
+
+[sub_resource type="Animation" id="Animation_ni8cy"]
+resource_name = "show_duck"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterUI/Base:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterUI/Duck:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterUI/Duck_banner1:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 0.258816, 0.241484),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2.5, 2.5), Vector2(2.2, 2.2)]
+}
+
+[sub_resource type="Animation" id="Animation_3s1v2"]
+resource_name = "show_statue"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterUI/Base:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterUI/Statue:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterUI/Statue_banner1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-40, -40), Vector2(-40, -16)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterUI/Statue_banner1:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterUI/Statue_banner2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.241591, 0.307886),
+"transitions": PackedFloat32Array(0.0457527, 1, 1),
+"update": 0,
+"values": [Vector2(-96, -72), Vector2(-32, -8), Vector2(-40, -16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vh53c"]
+_data = {
+"show_duck": SubResource("Animation_ni8cy"),
+"show_statue": SubResource("Animation_3s1v2")
+}
+
+[node name="GameHUD" type="CanvasLayer"]
+script = ExtResource("1_l5ux4")
+
+[node name="StatueHealth" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_m77h4")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="StatueHealth"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = 3.0
+offset_right = 89.0
+offset_bottom = 67.0
+grow_horizontal = 2
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(64, 14)
+value = 100.0
+texture_under = ExtResource("1_nfyha")
+texture_over = ExtResource("1_nt3bw")
+texture_progress = ExtResource("1_nfyha")
+tint_under = Color(0.12549, 0.180392, 0.215686, 1)
+tint_progress = Color(0.658824, 0.792157, 0.345098, 1)
+
+[node name="Label" type="Label" parent="StatueHealth"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = -3.0
+offset_right = 62.0
+offset_bottom = 23.0
+grow_horizontal = 2
+scale = Vector2(0.68, 0.68)
+pivot_offset = Vector2(62, 0)
+theme_override_colors/font_color = Color(0.909804, 0.756863, 0.439216, 1)
+theme_override_colors/font_shadow_color = Color(0.0823529, 0.113725, 0.156863, 1)
+theme_override_colors/font_outline_color = Color(0.0823529, 0.113725, 0.156863, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("2_a0jqe")
+theme_override_font_sizes/font_size = 16
+text = "MINERVA HEALTH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerHealth" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="PlayerHealth"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -30.0
+offset_right = 27.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(27, 16)
+value = 100.0
+texture_under = ExtResource("5_pr7dh")
+texture_over = ExtResource("5_4l3y0")
+texture_progress = ExtResource("5_pr7dh")
+tint_under = Color(0.12549, 0.180392, 0.215686, 1)
+tint_progress = Color(0.647059, 0.188235, 0.188235, 1)
+
+[node name="Label" type="Label" parent="PlayerHealth"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -18.0
+offset_right = 20.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.56, 0.56)
+pivot_offset = Vector2(20.2766, 11.3067)
+theme_override_colors/font_color = Color(0.647059, 0.188235, 0.188235, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 1
+theme_override_fonts/font = ExtResource("2_a0jqe")
+theme_override_font_sizes/font_size = 16
+text = "0/50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_a0jqe")
+theme_override_font_sizes/font_size = 16
+text = "Wave coming in 3"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w7kkl")
+}
+
+[node name="WaveText" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 70.0
+offset_bottom = 30.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_a0jqe")
+theme_override_font_sizes/font_size = 16
+text = "Wave 1"
+
+[node name="CharacterUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 1.0
+offset_bottom = 41.0
+grow_horizontal = 0
+
+[node name="Base" type="TextureRect" parent="CharacterUI"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -16.0
+offset_bottom = 24.0
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("8_duc3g")
+stretch_mode = 3
+
+[node name="Duck" type="TextureRect" parent="CharacterUI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -40.0
+offset_top = -16.0
+offset_bottom = 24.0
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("9_8iqjq")
+stretch_mode = 3
+
+[node name="Statue" type="TextureRect" parent="CharacterUI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -40.0
+offset_top = -16.0
+offset_bottom = 24.0
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("10_t1b8m")
+stretch_mode = 3
+
+[node name="Statue_banner1" type="TextureRect" parent="CharacterUI"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -40.0
+offset_top = -40.0
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("11_vpxa2")
+stretch_mode = 3
+
+[node name="Statue_banner2" type="TextureRect" parent="CharacterUI"]
+z_index = -1
+layout_mode = 0
+offset_left = -96.0
+offset_top = -72.0
+offset_right = -56.0
+offset_bottom = -32.0
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("12_ju4bl")
+stretch_mode = 3
+
+[node name="Duck_banner1" type="TextureRect" parent="CharacterUI"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 56.0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(20, 25.4545)
+texture = ExtResource("13_vdxj7")
+stretch_mode = 3
+
+[node name="SwitchTimerLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = 22.0
+offset_right = -34.0
+offset_bottom = 45.0
+grow_horizontal = 0
+scale = Vector2(0.520005, 0.520005)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_a0jqe")
+theme_override_font_sizes/font_size = 16
+text = "32.11"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ImperialGold" type="TextureRect" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 41.0
+offset_top = -21.0
+offset_right = 80.9999
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.319998, 0.319998)
+texture = ExtResource("9_5b765")
+
+[node name="Label" type="Label" parent="ImperialGold"]
+layout_mode = 0
+offset_left = 43.7504
+offset_top = 3.125
+offset_right = 83.7504
+offset_bottom = 26.125
+scale = Vector2(2.12502, 2.12502)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_a0jqe")
+theme_override_font_sizes/font_size = 16
+text = "100"
+
+[node name="Cards" type="Control" parent="." node_paths=PackedStringArray("cardPos")]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 1.52588e-05
+grow_vertical = 0
+scale = Vector2(3.65493, 1)
+script = ExtResource("10_ywsnj")
+cardPos = [NodePath("0"), NodePath("1"), NodePath("2")]
+
+[node name="0" type="Control" parent="Cards"]
+anchors_preset = 0
+offset_left = 6.56647
+offset_top = 40.0
+offset_right = 6.56647
+offset_bottom = 40.0
+scale = Vector2(0.241807, 1)
+
+[node name="1" type="Control" parent="Cards"]
+anchors_preset = 0
+offset_left = 19.6994
+offset_top = 40.0
+offset_right = 19.6994
+offset_bottom = 40.0
+scale = Vector2(0.241807, 1)
+
+[node name="2" type="Control" parent="Cards"]
+anchors_preset = 0
+offset_left = 32.8324
+offset_top = 40.0
+offset_right = 32.8324
+offset_bottom = 40.0
+scale = Vector2(0.241807, 1)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vh53c")
+}

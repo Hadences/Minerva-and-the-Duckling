@@ -1,0 +1,328 @@
+[gd_scene load_steps=13 format=3 uid="uid://bxc3rl5tih7wk"]
+
+[ext_resource type="Script" path="res://Scripts/GameMenu.gd" id="1_s8o6v"]
+[ext_resource type="FontFile" uid="uid://bgj7kf74577ek" path="res://Assets/Fonts/BitPotion.ttf" id="2_qgdr2"]
+[ext_resource type="Texture2D" uid="uid://ry580c07ra3y" path="res://Assets/playscreen.png" id="2_vuaqk"]
+[ext_resource type="Texture2D" uid="uid://57ilapmpfw8n" path="res://Assets/button.png" id="3_aspcb"]
+[ext_resource type="Texture2D" uid="uid://bm5ejwrx6blc0" path="res://Assets/button_hover.png" id="4_4dfeq"]
+[ext_resource type="Texture2D" uid="uid://bxm1aiqkkwovh" path="res://Assets/left_click.png" id="6_0uy0t"]
+[ext_resource type="Texture2D" uid="uid://dm6rg667tlyfb" path="res://Assets/right_click.png" id="6_7j848"]
+[ext_resource type="Texture2D" uid="uid://c1k4fltlp84hj" path="res://Assets/x.png" id="8_0seqq"]
+[ext_resource type="Texture2D" uid="uid://c0a4hsf8lvb58" path="res://Assets/x_hover.png" id="9_btrtn"]
+
+[sub_resource type="Animation" id="Animation_yymre"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HTPScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HTPScreen:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -224)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HTPScreen:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 215)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HTPScreen:mouse_filter")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_wly7c"]
+resource_name = "showHTP"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HTPScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HTPScreen:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.287175, 0.196146),
+"update": 0,
+"values": [Vector2(0, -224), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HTPScreen:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(384, 217)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HTPScreen:mouse_filter")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xkbep"]
+_data = {
+"RESET": SubResource("Animation_yymre"),
+"showHTP": SubResource("Animation_wly7c")
+}
+
+[node name="GameMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_s8o6v")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 12.0
+offset_bottom = 1.00002
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vuaqk")
+
+[node name="PlayButton" type="TextureButton" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -44.0
+offset_right = 36.0
+offset_bottom = -18.0
+grow_vertical = 2
+scale = Vector2(2.93139, 2.52535)
+texture_normal = ExtResource("3_aspcb")
+texture_hover = ExtResource("4_4dfeq")
+stretch_mode = 5
+
+[node name="Play!" type="Label" parent="PlayButton"]
+layout_mode = 0
+offset_left = 0.682271
+offset_top = 3.56387
+offset_right = 40.6823
+offset_bottom = 26.5639
+scale = Vector2(0.726709, 0.726709)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_qgdr2")
+theme_override_font_sizes/font_size = 16
+text = "PLAY
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HowToPlay" type="TextureButton" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 10.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_vertical = 2
+scale = Vector2(2.93139, 2.52535)
+texture_normal = ExtResource("3_aspcb")
+texture_hover = ExtResource("4_4dfeq")
+stretch_mode = 5
+
+[node name="Howtoplay" type="Label" parent="HowToPlay"]
+layout_mode = 0
+offset_left = 1.02341
+offset_top = 1.18795
+offset_right = 55.0234
+offset_bottom = 24.188
+scale = Vector2(0.536056, 0.825766)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("2_qgdr2")
+text = "How to play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xkbep")
+}
+
+[node name="HTPScreen" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -224.0
+offset_right = 384.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.12549, 0.180392, 0.215686, 1)
+
+[node name="Title" type="Label" parent="HTPScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -54.5
+offset_right = 54.5
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_qgdr2")
+text = "HOW TO PLAY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HTPScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 24.0
+offset_right = 40.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.84, 0.84)
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_qgdr2")
+text = "	Defend MINERVA! The statue must be protected from the monsters of the underworld. As a duck, your goal is to kill as many monsters as possible and keep the monsters away from the statue.
+
+Every 15 seconds, the your ROLE will be REVERSED. Rather than playing as a duck that needs to protect the statue, you are now the statue that is to be protected. When you become a statue, you can buy perks that can help you and your little duck slay the never ending monsters.
+
+Survive at all costs!
+Monsters will continually to spawn faster over time so buying as many perks as possible will be beneficial! Remember, after the next 15 seconds, your role will once again be REVERSED. This will continue until you lose! 
+
+						Good luck and have fun!
+"
+fit_content = true
+scroll_active = false
+
+[node name="RightClick" type="TextureRect" parent="HTPScreen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -40.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("6_7j848")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="HTPScreen/RightClick"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_qgdr2")
+text = "To Throw"
+
+[node name="LeftClick" type="TextureRect" parent="HTPScreen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -40.0
+offset_right = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("6_0uy0t")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="HTPScreen/LeftClick"]
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_qgdr2")
+text = "To Attack"
+
+[node name="Label" type="Label" parent="HTPScreen"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -24.0
+offset_right = 142.0
+offset_bottom = -1.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.854902, 0.52549, 0.243137, 1)
+theme_override_fonts/font = ExtResource("2_qgdr2")
+text = "Reminder: You can double jump!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="HTPScreen"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture_normal = ExtResource("8_0seqq")
+texture_hover = ExtResource("9_btrtn")
+stretch_mode = 3
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="HTPScreen/TextureButton" to="." method="_on_texture_button_pressed"]

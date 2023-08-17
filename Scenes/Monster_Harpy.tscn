@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://fncjcddm20l3"]
+
+[ext_resource type="Script" path="res://Scripts/Monster_Harpy.gd" id="1_4br86"]
+[ext_resource type="Texture2D" uid="uid://cwr54v4h8l7j0" path="res://Assets/mob/demonbat1.png" id="2_mpo63"]
+[ext_resource type="Texture2D" uid="uid://byax1tq1376pm" path="res://Assets/mob/demonbat2.png" id="3_j5a6l"]
+[ext_resource type="PackedScene" uid="uid://c3jm5gaa8yh8o" path="res://Scenes/HealthComponent.tscn" id="3_o35nq"]
+[ext_resource type="PackedScene" uid="uid://b8y3dmpl3l3cr" path="res://Scenes/HitboxComponent.tscn" id="4_21prd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ps2bg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_j5a6l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mpo63")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymmwf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4l3fp"]
+radius = 11.1803
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n0hjj"]
+radius = 28.0179
+
+[node name="Monster_Harpy" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 32
+gravity_scale = 0.1
+lock_rotation = true
+script = ExtResource("1_4br86")
+flapForce = 30.0
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_ps2bg")
+animation = &"fly"
+frame_progress = 0.122278
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ymmwf")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_o35nq")]
+MAX_HEALTH = 5
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_21prd")]
+collision_layer = 4
+collision_mask = 0
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_4l3fp")
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_n0hjj")
+
+[node name="FlapTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AttackCD" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="onDeathEvent" from="HealthComponent" to="." method="_on_health_component_on_death_event"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_attack_range_body_exited"]
+[connection signal="timeout" from="FlapTimer" to="." method="_on_flap_timer_timeout"]
+[connection signal="timeout" from="AttackCD" to="." method="_on_attack_timer_timeout"]
